@@ -1,27 +1,31 @@
 let firstNumber='0';
 let secondNumber=undefined; // secondNumber is undefined when first number is being typed
 
-let operator=''; // remember if/when operators are pressed
-let decimalIsPresentFirstNumber=false;
-let decimalIsPresentSecondNumber=false;
+let operator=''; // to remember when operators are pressed
+let decimalIsPresentFirstNumber=false; // 1st number has decimal when true
+let decimalIsPresentSecondNumber=false; // 2nd number has decimal when true
 
 //calculator functions below
 function add(x,y){
-    return parseFloat(x)+parseFloat(y);
+    let output=parseFloat(x)+parseFloat(y);
+    return +output.toFixed(5);
 }
 
 function subtract(x,y){
-    return parseFloat(x)-parseFloat(y);
+    let output=x-y;
+    return +output.toFixed(5);
 }
 
 function multiply(x,y){
-    return parseFloat(x)*parseFloat(y);
+    let output=x*y;
+    return +output.toFixed(5);
 }
 function divide(x,y){
     if(y==0){
         return 'ERROR';
     } else {
-        return parseFloat(x)/parseFloat(y);
+        let output=x/y;
+        return +output.toFixed(5);
     }
 }
 
@@ -124,25 +128,29 @@ equalsButton.addEventListener('click', function(){
 // for decimal button event listener
 let decimalButton = document.getElementById('decimal');
 
+// decimal is allowed to be placed based on each instance, order of if statements is crucial
 decimalButton.addEventListener('click', function(){
 
-    if(decimalIsPresentFirstNumber==false && secondNumber==undefined){ // first number being typed can add its decimal
+    if(firstNumber=='0'){ // first button executed is decimal
+        firstNumber='0.';                                                                     
+        displayValue.textContent=firstNumber;            
+        decimalIsPresentFirstNumber=true;
+    } else if(decimalIsPresentFirstNumber==false && secondNumber==undefined && operator==''){ // first number being typed can add its decimal
         firstNumber+='.'
         displayValue.textContent=firstNumber;
         decimalIsPresentFirstNumber=true;
-        console.log('first number being typed can add its decimal')
-    } else if(decimalIsPresentSecondNumber==false && operator!='' && secondNumber==undefined){ // decimal is placed for second number
-        secondNumber='0.';                                                                     // before any digits
+        console.log('first number being typed can add its decimal');
+    } else if(secondNumber==undefined && operator!=''){ // decimal is added for 2nd number before digits
+        secondNumber='0.';                                                                     
         displayValue.textContent=secondNumber;            
         decimalIsPresentSecondNumber=true;
-        console.log('decimal is placed for second number before any digits')                                
-    } else if(decimalIsPresentSecondNumber==false && secondNumber!=undefined) { // second number being typed can add its decimal
-        secondNumber+='.';
+        console.log('decimal is placed for second number before any digits')  
+    } else if(secondNumber!=undefined && operator!=''){
+        secondNumber+='.'
         displayValue.textContent=secondNumber;
         decimalIsPresentSecondNumber=true;
-        console.log('second number being typed can add its decimal')                                
+        console.log('bruh');
     }
-    
 });
 
 // clear calculator display and all variable values

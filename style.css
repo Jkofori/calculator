@@ -1,29 +1,40 @@
-body, html {
-    width: 100%;
+html, body {
+    margin: 0 auto;
+    text-align: center;
     height: 100%;
+    width: 100%;
 }
 
 .container {
     display: grid;
     width: 400px;
     height: 600px;
-    border: solid;
     padding: 25px;
+    border: solid;
+    border-radius: 2%;
     grid-template-areas: 'display display display display'
                          'AC AC AC divide'
                          'number7 number8 number9 multiply'
                          'number4 number5 number6 subtract'
                          'number1 number2 number3 add'
                          'number0 number0 decimalButton equals';
+    background-color: silver;
 }
 
 .display {
     grid-area: display;
     border: solid;
-    border-radius: 2%;
     text-align: right;
     padding-right: 10px;
     height: 50px;
+    background-color: white;
+}
+
+#main {
+    position: absolute;
+    left: 33%;
+    right: 33%;
+    margin-top: 20px;
 }
 
 #AC {
